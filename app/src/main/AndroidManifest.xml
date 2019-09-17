@@ -1,0 +1,82 @@
+<?xml version="1.4" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhu.autologin">
+    <!-- android:persistent="true" 进程优先级为前台-->
+    <application
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:persistent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <receiver
+            android:name=".WiFiReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="true">
+
+            <intent-filter>
+                <!--这些安卓8中静态注册全都停用了，除非改目标版本-->
+                <!--&lt;!&ndash;?这是触发动作？&ndash;&gt;-->
+                <!--<action android:name="WifiManager.NETWORK_STATE_CHANGED_ACTION"/>-->
+
+                <!--<action android:name="android.permission.ACCESS_NETWOEK_STATE"/>-->
+
+                <!--<action android:name="android.net.wifi.STATE_CHANGE"/>-->
+                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".wifiLogin"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--//摄像头权限-->
+
+    <!--//允许程序访问Wi-Fi网络状态信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--//打电话权限-->
+
+    <!--//发短信权限-->
+
+    <!--&lt;!&ndash;//允许一个程序访问CellID或WiFi热点来获取粗略的位置&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
+    <!--&lt;!&ndash;//允许访问精确位置 GPS&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+
+    <!--//允许程序访问有关GSM网络信息-->
+
+    <!--————————————————-->
+    <!--版权声明：本文为CSDN博主「热带雨林6123」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。-->
+    <!--原文链接：https://blog.csdn.net/qq_43314793/article/details/90812610-->
+    <!---->
+    <!--https://blog.csdn.net/u011068702/article/details/49049139-->
+    <!--AndroidManifest.xml结构-->
+
+</manifest>
