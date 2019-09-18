@@ -24,6 +24,8 @@ import android.os.PersistableBundle;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -88,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "您已成功登录", Toast.LENGTH_LONG).show();
                 okhttp();
             }
+        });
+        WebView webView = findViewById(R.id.WebView2);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://m.wufazhuce.com/one");
+        webView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
         });
 
     }

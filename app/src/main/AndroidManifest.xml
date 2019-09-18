@@ -1,6 +1,9 @@
-<?xml version="1.4" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zhu.autologin">
+    package="com.zhu.autologin"
+    android:versionCode="2"
+    android:versionName="1.2.1">
+
     <!-- android:persistent="true" 进程优先级为前台-->
     <application
         android:usesCleartextTraffic="true"
