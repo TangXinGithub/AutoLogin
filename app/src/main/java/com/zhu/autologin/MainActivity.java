@@ -59,14 +59,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 PackageManager pm = context.getPackageManager();    //包管理者
+//                开机也启动一下服务
+                final Intent in = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
+                startService(in);
                 //意图
                 Intent it = pm.getLaunchIntentForPackage("com.zhu.autologin");   //值为应用的包名
                 if (null != it) {
+
                     context.startActivity(it);         //启动意图
                 }
             }
         }, intentFilter);
 
+        //注册服务终止的时候启动
+        IntentFilter inet = new IntentFilter();
+        intentFilter.addAction("com.zhu.autologin.destroy");// 连上热点与否
+        wifiLoginChangeReceiver = new WiFiReceiver();
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+//                PackageManager pm = context.getPackageManager();    //包管理者
+////                开机也启动一下服务
+//                final Intent in = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
+//                startService(in);
+//                //意图
+//                Intent it = pm.getLaunchIntentForPackage("com.zhu.autologin");   //值为应用的包名
+//                if (null != it) {
+//
+//                    context.startActivity(it);         //启动意图
+                //启动服务
+                if (intent.getAction().equals("com.zhu.autologin.destroy")) {
+                    final Intent iin = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
+                    startService(iin);
+
+                }
+            }
+        }, intentFilter);
         // wifiLogin wifiLoginwait=new wifiLogin(); 不是实例化开启动的 tmd
         // 启动服务
 
@@ -78,11 +106,14 @@ public class MainActivity extends AppCompatActivity {
 //　　这样显式声明就可以了。
 //
 //　　再运行，OK。
+
         final Intent intent = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
         startService(intent);
 //                onCreate()是回调方法，是被动的
         //nox_adb.exe connect 127.0.0.1:5037  先查看端口号 nox-adb的端口号
-
+        //打开就登录一次
+        Toast.makeText(MainActivity.this, "尝试登录", Toast.LENGTH_LONG).show();
+        okhttp();
 
         Button button = (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
