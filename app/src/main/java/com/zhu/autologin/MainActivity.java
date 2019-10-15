@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
-
-
+//获得异常
+        myException.create(this);
 ////        //注册“开机变化”的广播接收器
 //        intentFilter = new IntentFilter();
 //        intentFilter.addAction("android.intent.action.BOOT_COMPLETED");// 连上热点与否
