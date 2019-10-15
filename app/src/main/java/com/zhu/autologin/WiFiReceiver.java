@@ -11,6 +11,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.Log;
@@ -57,6 +58,9 @@ public class WiFiReceiver extends BroadcastReceiver {
 //网络打开与否
         Log.i("broadcastOpen", "广播触发");
 
+
+        Toast.makeText(context, "广播触发", Toast.LENGTH_LONG).show();
+
         //网络改变
         if ("android.net.wifi.WIFI_STATE_CHANGED".equals(intent.getAction())) {  //打开wifi会触发这么多次吗
 
@@ -77,6 +81,11 @@ public class WiFiReceiver extends BroadcastReceiver {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+                        //解决在子线程中调用Toast的异常情况处理
+                        Looper.prepare();
+                        Toast.makeText(context, "开始登录", Toast.LENGTH_LONG).show();
+                        Looper.loop();
                         okhttp();
                     }
                 }).start();
