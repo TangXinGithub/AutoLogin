@@ -84,7 +84,7 @@ public class WiFiReceiver extends BroadcastReceiver {
 
                         //解决在子线程中调用Toast的异常情况处理
                         Looper.prepare();
-                        Toast.makeText(context, "开始登录", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "wifi开始登录", Toast.LENGTH_LONG).show();
                         Looper.loop();
                         okhttp();
                     }

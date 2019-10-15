@@ -49,35 +49,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
 
 
-//        //注册“开机变化”的广播接收器
-        intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.BOOT_COMPLETED");// 连上热点与否
-        wifiLoginChangeReceiver = new WiFiReceiver();
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                PackageManager pm = context.getPackageManager();    //包管理者
-//                开机也启动一下服务
-                final Intent in = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
-                startService(in);
-                //意图
-                Intent it = pm.getLaunchIntentForPackage("com.zhu.autologin");   //值为应用的包名
-                if (null != it) {
-
-                    context.startActivity(it);         //启动意图
-                }
-            }
-        }, intentFilter);
-
-        //注册服务终止的时候启动
-        IntentFilter inet = new IntentFilter();
-        intentFilter.addAction("com.zhu.autologin.destroy");// 连上热点与否
-        wifiLoginChangeReceiver = new WiFiReceiver();
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
+////        //注册“开机变化”的广播接收器
+//        intentFilter = new IntentFilter();
+//        intentFilter.addAction("android.intent.action.BOOT_COMPLETED");// 连上热点与否
+//        wifiLoginChangeReceiver = new WiFiReceiver();
+//        registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
 //                PackageManager pm = context.getPackageManager();    //包管理者
 ////                开机也启动一下服务
 //                final Intent in = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
@@ -87,16 +71,12 @@ public class MainActivity extends AppCompatActivity {
 //                if (null != it) {
 //
 //                    context.startActivity(it);         //启动意图
-                //启动服务
-                if (intent.getAction().equals("com.zhu.autologin.destroy")) {
-                    final Intent iin = new Intent(MainActivity.this, wifiLogin.class); //5.0后要这么写
-                    startService(iin);
+//                }
+//            }
+//        }, intentFilter);
 
-                }
-            }
-        }, intentFilter);
-        // wifiLogin wifiLoginwait=new wifiLogin(); 不是实例化开启动的 tmd
-        // 启动服务
+
+//
 
 ////用于启动和停止service的Intent
 //        final Intent it = new Intent("android.mu.action.music");
@@ -112,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
 //                onCreate()是回调方法，是被动的
         //nox_adb.exe connect 127.0.0.1:5037  先查看端口号 nox-adb的端口号
         //打开就登录一次
-        Toast.makeText(MainActivity.this, "尝试登录", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "主函数尝试登录", Toast.LENGTH_LONG).show();
         okhttp();
 
         Button button = (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "您已成功登录", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "按钮：您已成功登录", Toast.LENGTH_LONG).show();
                 okhttp();
             }
         });
